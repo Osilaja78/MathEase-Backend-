@@ -1,4 +1,10 @@
-from fastapi import APIRouter, HTTPException,status
+"""
+*** This file communicates with WolframAlpha api.
+    It contains all logic for the question and answers.
+
+"""
+
+from fastapi import APIRouter, HTTPException, status
 from dotenv import load_dotenv
 from api import schemas
 from urllib import parse
@@ -8,7 +14,7 @@ import wolframalpha
 import requests
 import os
 
-router = APIRouter()
+router = APIRouter(tags=['Question'])
 
 # TODO: I CAN USE A REGEX TO REMOVE THE UNWANTED PIPES
 
@@ -31,7 +37,10 @@ async def ask_question(request: schemas.Question):
 
     # Raise an exception in case something unexpected happens
     if not answer:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Something went wrong!")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Something went wrong!"
+        )
 
     return {'answer': answer}
 
