@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException,status, Depends
 from api.utils.hashing import password_hash
 from sqlalchemy.orm import Session
+from sqlalchemy import exc
 from api.database import get_db
 from api.utils.email import send_mail
 from jose import jwt
@@ -38,10 +39,11 @@ async def add_user(request: schemas.Users, db: Session = Depends(get_db)):
             db.close()
         else:
             return {"message": "Confirm password does not match!"}
-    except Exception:
+    # ************************ CHECK HERE **********************************
+    except (Exception, exc.IntegrityError) as e:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="User with email already exist!"
+            detail=f"User with email already exist! {e}",
         )
 
     token_data = {
@@ -77,7 +79,6 @@ async def add_user(request: schemas.Users, db: Session = Depends(get_db)):
 
     return {
         "user": user,
-        "token": token # REMOVE LATER, FOR TESTING ONLY
     }
 
 # Get a specific user from the database

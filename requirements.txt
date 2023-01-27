@@ -19,8 +19,9 @@ jaraco.context==4.3.0
 Jinja2==3.1.2
 MarkupSafe==2.1.2
 more-itertools==9.0.0
-orjson==3.8.5
+mysql-connector-python==8.0.32
 passlib==1.7.4
+protobuf==3.20.3
 pyasn1==0.4.8
 pydantic==1.10.4
 python-dotenv==0.21.1

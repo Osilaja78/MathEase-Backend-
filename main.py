@@ -10,6 +10,7 @@ app = FastAPI(title="MathEase")
 
 # Enable CORS middleware
 origins = [
+    "https://r6mjxn.deta.dev"
     "http://localhost",
     "http://localhost:8080",
 ]
