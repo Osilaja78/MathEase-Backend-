@@ -15,7 +15,7 @@ load_dotenv()
 
 # SQLALCHEMY_DATABASE_URL = f"mysql+mysqlconnector://{DATABASE_USER}:{DATABASE_PASSWORD}@localhost:{DATABASE_PORT}/{DATABASE_NAME}"
 # URL for sqlite database
-SQLALCHEMY_DATABASE_URL = "sqlite:///./db.sqlite3"
+SQLALCHEMY_DATABASE_URL = "sqlite:///./MathEase.db"
 
 # Create SQLAlcheny engine
 engine = create_engine(
