@@ -13,6 +13,7 @@ origins = [
     "https://r6mjxn.deta.dev"
     "http://localhost",
     "http://localhost:8080",
+    "http://localhost:3000",
 ]
 
 app.add_middleware(
