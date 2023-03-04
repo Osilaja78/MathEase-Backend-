@@ -38,7 +38,11 @@ async def add_user(request: schemas.Users, db: Session = Depends(get_db)):
             db.refresh(user)
             db.close()
         else:
-            return {"message": "Confirm password does not match!"}
+            return {"error": "Confirm password does not match!"}
+            # raise HTTPException(
+            #     status_code=status.HTTP_400_BAD_REQUEST,
+            #     detail="Confirm password does not match!"
+            # )
     # ************************ CHECK HERE **********************************
     except (Exception, exc.IntegrityError) as e:
         raise HTTPException(
@@ -79,6 +83,7 @@ async def add_user(request: schemas.Users, db: Session = Depends(get_db)):
 
     return {
         "user": user,
+        "message": "Success! Please check your email to confirm your account."
     }
 
 # Get a specific user from the database
