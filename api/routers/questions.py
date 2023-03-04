@@ -79,6 +79,6 @@ async def ask_math_question(request: schemas.Question):
     long_answer = str(answers[2]).splitlines()
     
     return {
-        'short_nswer': answers[1],
-        'long_nswer': long_answer
+        'short_answer': answers[1],
+        'long_answer': long_answer
     }
