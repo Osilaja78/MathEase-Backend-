@@ -7,19 +7,21 @@ import os
 load_dotenv()
 
 
-# DATABASE_NAME: str = os.getenv('DATABASE_NAME')
-# # DATABASE_HOST: str = os.getenv('DATABASE_HOST')
-# DATABASE_PORT: int = os.getenv('DATABASE_PORT')
-# DATABASE_USER: str = os.getenv('DATABASE_USER')
-# DATABASE_PASSWORD = os.getenv('DATABASE_PASSWORD')
+DATABASE_NAME = os.getenv('DATABASE_NAME')
+DATABASE_HOST = os.getenv('DATABASE_HOST')
+DATABASE_PORT = os.getenv('DATABASE_PORT')
+DATABASE_USER = os.getenv('DATABASE_USER')
+DATABASE_PASSWORD = os.getenv('DATABASE_PASSWORD')
 
-# SQLALCHEMY_DATABASE_URL = f"mysql+mysqlconnector://{DATABASE_USER}:{DATABASE_PASSWORD}@localhost:{DATABASE_PORT}/{DATABASE_NAME}"
+SQLALCHEMY_DATABASE_URL = f"mysql+mysqlconnector://{DATABASE_USER}:{DATABASE_PASSWORD}@{DATABASE_HOST}:{DATABASE_PORT}/{DATABASE_NAME}"
 # URL for sqlite database
-SQLALCHEMY_DATABASE_URL = "sqlite:///./MathEase.db"
+# SQLALCHEMY_DATABASE_URL = "sqlite:///./MathEase.db"
 
 # Create SQLAlcheny engine
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL
+    SQLALCHEMY_DATABASE_URL,
+    # pool_size=1000, max_overflow=0
+    # connect_args={"check_same_thread": False}
 )
 
 #  Create a sessionLocal class

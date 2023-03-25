@@ -55,7 +55,7 @@ async def add_user(request: schemas.Users, db: Session = Depends(get_db)):
     }
     token = jwt.encode(token_data, JWT_SECRET_KEY, algorithm=ALGORITHM)
 
-    url = f"http://localhost:8000/auth/verify-token?token={token}"
+    url = f"http://localhost:3000/auth/verify_token?token={token}"
 
 
     content = f"""

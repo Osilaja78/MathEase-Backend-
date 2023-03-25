@@ -38,7 +38,7 @@ async def login(request: OAuth2PasswordRequestForm = Depends(),
 
     # If user or password does not exist, return an error
     if not user:
-        return HTTPException(
+        raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, 
             detail="User with email does not exist!"
         )
@@ -47,8 +47,8 @@ async def login(request: OAuth2PasswordRequestForm = Depends(),
     password = verify_password(request.password, user.password)
 
     if not password:
-        return HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, 
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, 
             detail="Email or password incorrect!"
         )
 
@@ -68,16 +68,16 @@ async def login(request: OAuth2PasswordRequestForm = Depends(),
 
 # Route for account verification
 # it verifies users access token sent via email.
-@router.post('/auth/verify-token')
+@router.get('/auth/verify-token')
 async def verify_token(token, db: Session = Depends(get_db)):
 
     # Create a payload and decode the token recieved from the user
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=ALGORITHM)
-    except Exception:
+    except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid token",
+            detail=f"Invalid token {e}",
             headers={"WWW-Authenticate": "Bearer"}
         )
 
