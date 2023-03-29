@@ -33,13 +33,13 @@ async def ask_question(request: schemas.Question):
     res = client.query(request.question)
     
     # Includes only text from the response
-    answer = next(res.results).text
-
     # Raise an exception in case something unexpected happens
-    if not answer:
+    try:
+        answer = next(res.results).text
+    except Exception:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail="Something went wrong!"
+            detail="Answer not found!"
         )
 
     return {'answer': answer}
