@@ -39,15 +39,10 @@ async def add_user(request: schemas.Users, db: Session = Depends(get_db)):
             db.close()
         else:
             return {"error": "Confirm password does not match!"}
-            # raise HTTPException(
-            #     status_code=status.HTTP_400_BAD_REQUEST,
-            #     detail="Confirm password does not match!"
-            # )
-    # ************************ CHECK HERE **********************************
-    except (Exception, exc.IntegrityError) as e:
+    except Exception:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"User with email already exist! {e}",
+            detail=f"User with email already exist!",
         )
 
     token_data = {

@@ -7,14 +7,21 @@ from email.message import EmailMessage
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import ssl, smtplib
+from dotenv import load_dotenv
+import os
+
+
+load_dotenv()
+EMAIL_SENDER = os.getenv('EMAIL_SENDER')
+EMAIL_PASSWORD = os.getenv('EMAIL_PASSWORD')
 
 # This function sends email to users
 # It recieves two parameters, the reciever's email 
 # and the content to be sent
 async def send_mail(email: str, content: str):
 
-    email_sender = 'nexusdomains360@gmail.com'
-    email_password = 'rifbznmpwfssrpvp'
+    email_sender = EMAIL_SENDER
+    email_password = EMAIL_PASSWORD
     email_reciever = email
 
     subject = 'MathEase Account.'
